@@ -10,6 +10,7 @@ const app = express();
 
 // CORS configuration
 const allowedOrigins = ['http://localhost:3000', 'https://toddler-assignment.vercel.app'];
+
 app.use(cors({
     origin: function (origin, callback) {
         // Allow requests with no origin (like mobile apps, curl requests)
@@ -19,7 +20,10 @@ app.use(cors({
             return callback(new Error(msg), false);
         }
         return callback(null, true);
-    }
+    },
+    credentials: true, // If you need to handle cookies
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Specify allowed methods
+    allowedHeaders: ['Content-Type', 'Authorization'] // Specify allowed headers
 }));
 
 app.use(bodyParser.json());
